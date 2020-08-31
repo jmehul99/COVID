@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://kit.fontawesome.com/dfc03b0734.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<title>COVID tracker</title>
+	<style>
+		.container {width: 60%;}
+	  .speech {border: 1px solid #DDD; width: 300px; padding: 0; margin: 0}
+	  .speech input {border:0; width: 240px; display: inline-block; height: 30px;}
+	  .speech img {float: right; width: 40px }
+	  .Query {margin: auto; width: 50%; padding: 10px;}
+	  .Update {margin: auto; width: 50%; padding: 10px; border: 3px double black}
+	</style>
+</head>
+<body>
+	<div class= container>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<img src="https://media.istockphoto.com/vectors/coronavirus-covid19-outbreak-virus-image-covid-19-logo-with-virus-vector-id1211614741" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+			<span class="navbar-brand mb-0 h1">COVID-19 Tracker</span>
+		  	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    	<span class="navbar-toggler-icon"></span>
+		  	</button>
+
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item active">
+		        <a class="nav-link" href="#">
+		        	<i class="fas fa-home"></i>
+		        	Home
+		        </a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="#">
+		        	<i class="fas fa-question-circle"></i>
+		        	Help
+		    	</a>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href="#">
+		        <i class="fas fa-user-tie"></i>
+		        	About
+		    	</a>
+		      </li>
+		    </ul>
+		  </div>
+		</nav>
+		<div class="Query" >
+			<form action="#" method="post">
+				<div class="speech">
+				<p><input type="text" name="nm" placeholder="How many cases in Brazil?" id= "transcript"></p>
+				<img onclick="startDictation()" src="//i.imgur.com/cHidSVu.gif" />
+				</div>
+				<p><input type="submit" value="Submit"/></p>
+			</form>
+			<p>Query: {{ query }}</p>
+			<p>Result: {{ result }}</p>
+		</div>
+		<div class= "Update">
+			<p>Click the button to Update the data, it may take a while... </p>
+			<form action="#" method="post">
+			    <input type="submit" name="Update" value="Update" />
+			</form>
+		</div>
+
+		<!-- HTML5 Speech Recognition API -->
+		<script>
+		  function startDictation() {
+
+		    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+		      var recognition = new webkitSpeechRecognition();
+
+		      recognition.continuous = false;
+		      recognition.interimResults = false;
+
+		      recognition.lang = "en-US";
+		      recognition.start();
+
+		      recognition.onresult = function(e) {
+		        document.getElementById('transcript').value
+		                                 = e.results[0][0].transcript;
+		        recognition.stop();
+		        document.getElementById('labnol').submit();
+		      };
+
+		      recognition.onerror = function(e) {
+		        recognition.stop();
+		      }
+
+		    }
+		  }
+		</script>
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+	</div>
+</body>
+</html>
